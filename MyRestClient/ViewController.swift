@@ -44,6 +44,12 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
+        let cell = countryTableView.dequeueReusableCell(withIdentifier: textCellIndicator)
+        
+        cell?.textLabel?.text = fetchedCountry[indexPath.row].country
+        cell?.detailTextLabel?.text = fetchedCountry[indexPath.row].capital
+        
+        return cell!
     }
     
     //- END
@@ -111,6 +117,8 @@ class ViewController: UIViewController, UITableViewDataSource {
                     print("-------")
                     print("------ Ending new data ---------")
                     print("-------")
+                    
+                    self.countryTableView.reloadData()
                 }
                 catch
                 {
