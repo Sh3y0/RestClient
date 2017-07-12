@@ -10,6 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //declaring my variables
+    var fetchedCountry = [Country]()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +27,9 @@ class ViewController: UIViewController {
     }
 
     func ParseData(){
+        
+        fetchedCountry = []
+        
         //setting my url point
         let url = "https://restcountries.eu/rest/v1/all"
         
@@ -57,6 +65,29 @@ class ViewController: UIViewController {
                     print("-------")
                     print("------ Ending data ---------")
                     print("-------")
+                    
+                    //adding to country array
+                    for eachFetchedCountry in fetchedData{
+                        let eachCountry = eachFetchedCountry as! [String: Any]
+                        
+                        let country = eachCountry["name"] as! String
+                        let capital = eachCountry["capital"] as! String
+                        
+                        self.fetchedCountry.append(Country(country: country, capital: capital))
+                    }
+                    
+                    
+                    //printing object
+                    
+                    print("-------")
+                    print("------ getting new data ---------")
+                    print("-------")
+                    
+                    print(self.fetchedCountry)
+                    
+                    print("-------")
+                    print("------ Ending new data ---------")
+                    print("-------")
                 }
                 catch
                 {
@@ -66,6 +97,18 @@ class ViewController: UIViewController {
         }
         
         task.resume()
+    }
+}
+
+
+//creation country class
+class Country{
+    var country : String
+    var capital : String
+    
+    init(country : String, capital: String) {
+        self.country = country
+        self.capital = capital
     }
 }
 
