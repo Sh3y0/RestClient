@@ -8,15 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
 
+    let textCellIndicator = "countryCell"
+    
+    @IBOutlet weak var countryTableView: UITableView!
+    
     //declaring my variables
     var fetchedCountry = [Country]()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        countryTableView.dataSource = self
         
         ParseData()
     }
@@ -25,6 +29,25 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override var prefersStatusBarHidden: Bool{
+        return true
+    }
+    
+    //- START
+    //data table methods starts here
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return fetchedCountry.count
+    }
+    
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        
+    }
+    
+    //- END
+    //Data table methods ends here
 
     func ParseData(){
         
